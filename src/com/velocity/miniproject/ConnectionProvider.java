@@ -87,5 +87,73 @@ public class ConnectionProvider {
 			e.printStackTrace();
 		}
 	}
-
-}
+	public void checkAnswer(int que)
+		{
+			try
+			{
+	     		System.out.println("\n"+"Enter answer(only in a,b,c,d format):");
+				String ans=sc.next();
+				if(ans.equals("a")||ans.equals("b")||ans.equals("c")||ans.equals("d"))
+				{						
+					con=getConnectionDetails();
+					ps=con.prepareStatement("select answer from questionlist where qno=?");							ps.setInt(1, que);
+					ResultSet rs=ps.executeQuery();
+					while(rs.next())
+					{							
+					String answer = rs.getString(1);
+					
+					if(answer.equals(ans))
+						{
+							count++;
+						}
+					}
+							
+					rs.close();
+					}
+					else
+						{
+							System.err.println("Please enter answer in correct format");
+							checkAnswer(que);
+						}
+						con.close();
+						ps.close();
+					}
+					catch (Exception e) 
+			        	{
+						e.printStackTrace();
+			        	}
+				
+			        }
+	public void score(int marks,String fname,String lname) {
+		try
+		{
+			con=getConnectionDetails();
+			ps=con.prepareStatement("insert into student(firstName,lastName,score,grade)values(?,?,?,?)");
+			ps.setString(1, fname);
+			ps.setString(2, lname);
+			ps.setInt(3, marks);
+			
+			if(marks>=8 && marks<=10)
+			{
+				ps.setString(4, "Class A");
+			}
+			else if(marks>=6 && marks<8)
+			{
+				ps.setString(4, "Class B");
+			}
+			else if(marks==5)
+			{
+				ps.setString(4, "Class c");
+			}
+			else 
+			{
+				ps.setString(4, "Class c");
+				
+			}
+			int i= ps.executableUpdate();
+			System.out.println("Record Added"+i);
+			
+		
+		}
+	}
+                }
