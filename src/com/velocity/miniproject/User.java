@@ -69,9 +69,38 @@ public class User {
 		}
 		return lname;
 	}
+
+	
+	public String validationC() {
+		System.out.println("Please Enter your city name : ");
+		String city = sc.nextLine();
+		
+		boolean b = city.matches("[A-Z][a-z]*");
+		if(b!=true)
+		{
+			System.err.println("Please enter valid city name"+"\n");
+			validationC();
+		}
+		return city;
+	}
+	
+	public String validationMobile()
+	{
+		System.out.println("Please Enter your Mobile no : ");
+		String no =  sc.next();
+		boolean b = no.matches("[7-9][0-9]{9}");
+		if(b!=true)
+		{
+			System.err.println("Please enter valid Mobile Number"+"\n");
+			validationMobile();
+		}
+		return no;
+	}
+
 public String validationC() {
 	System.out.println("Please Enter your city name : ");
 	String city=sc.nextLine();
+
 
 	boolean b = city.matches("[A-Z][a-z]*");
 	if(b!=true)
